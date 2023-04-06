@@ -1,1 +1,374 @@
-Initial Commit
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="CAMM.">
+  <meta name="keywords" content="Category-Agnostic, 3D Reconstruction, Pose Manipulation, Monocular Videos">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAMM</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">CAMM: Building Category-Agnostic and Animatable 3D Models from Monocular Videos</h1>
+          <p class="is-size-5 text-center">
+            <a href="https://dynavis.github.io/2023/"> CVPR 2023 DynaVis Workshop</a>
+            <!-- CVPR 2023 Workshop -->
+		      </p>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://tianshukuai.github.io/">Tianshu Kuai</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://aku02.github.io/">Akash Karthikeyan</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://yashkant.github.io/">Yash Kant</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=z8GwuTgAAAAJ&hl=en">Ashkan Mirzaei</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.gilitschenski.org/igor/">Igor Gilitschenski</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of Toronto
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="data/others/paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://camm3d.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (Coming Soon)</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://camm3d.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://camm3d.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="https://camm3d.github.io/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Overview</h2>
+        <div class="content has-text-justified">
+          <img src="data/images/overview.png" style="float: right; margin-left:20px; margin-bottom: 10px" width="100%;" />
+          <p class="content has-text-justified">
+            Given monocular videos of an articulated object, our method builds its canonical representation, including 3D shape, appearance, and a corresponding animatable 3D kinematic chain for direct pose manipulations. Our approach does not rely on any information on the object's shape and underlying structure. In c) we show example of re-posing the human in b) to novel pose. We show the learned canonical representations of other object categories in d).
+            <!-- Animating an object in 3D often requires an articulated structure, e.g. a kinematic chain or skeleton of the manipulated object with proper skinning weights, to obtain smooth movements and surface deformations. However, existing models that allow direct pose manipulations are either limited to specific object categories or built with specialized equipment. To reduce the work needed for creating animatable 3D models, we propose a novel reconstruction method that learns an animatable kinematic chain for any articulated object. Our method operates on monocular videos without prior knowledge of the object's shape or underlying structure. Our approach is on par with state-of-the-art 3D surface reconstruction methods on various articulated object categories while enabling direct pose manipulations by re-posing the learned kinematic chain. -->
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p class="content has-text-justified">
+            Animating an object in 3D often requires an articulated structure, e.g. a kinematic chain or skeleton of the manipulated object with proper skinning weights, to obtain smooth movements and surface deformations. However, existing models that allow direct pose manipulations are either limited to specific object categories or built with specialized equipment. To reduce the work needed for creating animatable 3D models, we propose a novel reconstruction method that learns an animatable kinematic chain for any articulated object. Our method operates on monocular videos without prior knowledge of the object's shape or underlying structure. Our approach is on par with state-of-the-art 3D surface reconstruction methods on various articulated object categories while enabling direct pose manipulations by re-posing the learned kinematic chain.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <h2 class="title is-3">Our Pipeline</h2>
+        <div class="content">
+          <img src="data/images/method.png" width="100%"/>
+        </div>
+        </br>
+        <div class="content has-text-justified">
+          <p>
+            Our method optimizes the canonical representation, including the object's shape, appearance, and kinematic chain, to enable direct pose manipulations. It uses the kinematic chain to transform 3D points between the canonical and deformed space, and render 2D observation predictions of colors, foreground masks and optical flows to match the actual 2D observations. In addition, canonical feature embeddings are learned by matching the corresponding 2D image features to establish the object parts level correspondences across different frames within a collection of monocular videos.
+          </p>
+          </br>
+        </div>
+      </div>
+    </div>
+    <!--/ Method. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h2 class="title">3D Reconstruction Results</h2>
+      <div class="content has-text-justified">
+        <b><p class="content has-text-justified">Here we show the 3D reconstruction results of the frames in input videos for different objects:</p></b>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-iiwa">
+          <video poster="" id="iiwa" class="wide-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/iiwa.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-eagle">
+          <video poster="" id="eagle" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/eagle.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-ama-swing">
+          <video poster="" id="ama-swing" class="wide-video" class="wide-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/ama-swing.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-ama-samba">
+          <video poster="" id="ama-samba" class="wide-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/ama-samba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cat-coco1">
+          <video poster="" id="cat-coco1" class="wide-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/cat1-3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cat-coco2">
+          <video poster="" id="cat-coco2" class="wide-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/cat1-5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cat-pikachiu">
+          <video poster="" id="cat-pikachiu" class="wide-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/cat2-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-human1">
+          <video poster="" id="human1" class="small-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/human10.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-human2">
+          <video poster="" id="human2" class="small-video" autoplay controls muted loop height="100%">
+            <source src="data/recon_videos/human4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br/>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h2 class="title">Kinematic Chain Driven Re-posing</h2>
+      <div class="content has-text-justified">
+        <b><p class="content has-text-justified">Here we show the results of re-posing the meshes by directly manipulating the learned kinematic chains for different objects:</p></b>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-iiwa1">
+          <video poster="" id="iiwa1" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/iiwa-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-iiwa2">
+          <video poster="" id="iiwa2" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/iiwa-2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-eagle1">
+          <video poster="" id="eagle1" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/eagle-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-eagle2">
+          <video poster="" id="eagle2" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/eagle-2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-ama1">
+          <video poster="" id="ama1" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/ama-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-ama2">
+          <video poster="" id="ama2" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/ama-2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cat1">
+          <video poster="" id="cat1" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/cat-1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cat2">
+          <video poster="" id="cat2" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/cat-2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-human">
+          <video poster="" id="human" autoplay controls muted loop height="100%">
+            <source src="data/repose_videos/human.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop has-text-centered">
+    <br/>
+    <h2 class="title">Sample Videos from Our iiwa Robotic Arm Dataset</h2>
+      <div class="row justify-content-around">
+        <div class="col-6">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/others/iiwa-sample1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="col-6">
+          <video poster="" autoplay muted loop height="100%" class="rounded" preload="none">
+            <source src="data/others/iiwa-sample2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="content has-text-justified">
+        <p class="content">In addition to the monocular videos of the iiwa robotic arm, we provide ground-truth 3D mesh, segmentation mask, and camera pose for each frame of the videos. Our dataset can be accessed and downloaded from <a href="https://camm3d.github.io/">here</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{camm,
+      title={{CAMM}: Building Category-Agnostic and Animatable 3D Models from Monocular Videos}, 
+      author={Tianshu Kuai and Akash Karthikeyan and Yash Kant and Ashkan Mirzaei and Igor Gilitschenski},
+      year={2023},
+      booktitle={CVPRW},
+}</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>, <a href="https://github.com/spinnerf3d/spinnerf3d.github.io">SPIn-NeRF</a>, and <a href="https://github.com/nesf3d/nesf3d.github.io">NeSF</a>. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
